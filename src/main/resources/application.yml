@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/phonebook
+    username: admin
+    password: 18000000
+
+resilience4j.retry:
+  configs:
+    default:
+      maxRetryAttempts: 3
+      waitDuration: 100
+      retryExceptions:
+        - java.util.concurrent.TimeoutException
+#      ignoreExceptions:
+#        - com.walmart.cart.BusinessException
+  instances:
+    github:
+      baseConfig: default
