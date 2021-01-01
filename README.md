@@ -91,7 +91,7 @@ docker-compose stop
 ```
 ## Documentation
 - [Swagger](http://localhost:8080/swagger-ui.html)
-- [Java Documentation]()
+- [Java Documentation](https://roghayehfarhadi.github.io/phonebook/)
 ## Versions
-1) [1.0-SNAPSHOT]()  
+1) [0.0.1-SNAPSHOT](https://github.com/roghayehfarhadi/phonebook/releases/tag/v0.0.1-SNAPSHOT)  
     - contains create and search contact and fetch github repositories of each contact 
