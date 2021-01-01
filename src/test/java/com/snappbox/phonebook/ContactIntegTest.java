@@ -154,8 +154,7 @@ public class ContactIntegTest extends BaseIntegTest {
                 .statusCode(HttpStatus.SC_OK)
                 .body("content.github", Matchers.containsInAnyOrder(ContactConst.ALI_GITHUB, ContactConst.MINA_GITHUB))
                 .body("content.phoneNumber", Matchers.containsInAnyOrder(ContactConst.ALI_PHONE, ContactConst.MINA_PHONE))
-//                .body("content.repositories", Matchers.containsInAnyOrder(
-//                        Constants.ROGAHYEH_REPOSITORY1,Constants.ROGAHYEH_REPOSITORY2,Constants.ROGAHYEH_REPOSITORY3))
+                .body("content.repositories", Matchers.containsInAnyOrder(Matchers.empty(),Matchers.empty()))
                 .body("content.organization", Matchers.containsInAnyOrder(ContactConst.ALI_ORGANIZATION, ContactConst.MINA_ORGANIZATION))
                 .body("content.name", Matchers.containsInAnyOrder(ContactConst.ALI_NAME, ContactConst.MINA_NAME))
                 .body("content.id", Matchers.notNullValue())
@@ -185,8 +184,7 @@ public class ContactIntegTest extends BaseIntegTest {
                 .statusCode(HttpStatus.SC_OK)
                 .body("content.github", Matchers.contains(ContactConst.ALI_GITHUB))
                 .body("content.phoneNumber", Matchers.contains(ContactConst.ALI_PHONE))
-//                .body("content.repositories", Matchers.containsInAnyOrder(
-//                        Constants.ROGAHYEH_REPOSITORY1,Constants.ROGAHYEH_REPOSITORY2,Constants.ROGAHYEH_REPOSITORY3))
+                .body("content.repositories", Matchers.containsInAnyOrder(Matchers.empty()))
                 .body("content.organization", Matchers.contains(ContactConst.ALI_ORGANIZATION))
                 .body("content.name", Matchers.contains(ContactConst.ALI_NAME))
                 .body("content.id", Matchers.notNullValue())
@@ -213,8 +211,7 @@ public class ContactIntegTest extends BaseIntegTest {
                 .statusCode(HttpStatus.SC_OK)
                 .body("content.github", Matchers.containsInAnyOrder(ContactConst.ALI_GITHUB))
                 .body("content.phoneNumber", Matchers.containsInAnyOrder(ContactConst.ALI_PHONE))
-//                .body("content.repositories", Matchers.containsInAnyOrder(
-//                        Constants.ROGAHYEH_REPOSITORY1,Constants.ROGAHYEH_REPOSITORY2,Constants.ROGAHYEH_REPOSITORY3))
+                .body("content.repositories", Matchers.containsInAnyOrder(Matchers.empty()))
                 .body("content.organization", Matchers.containsInAnyOrder(ContactConst.ALI_ORGANIZATION))
                 .body("content.name", Matchers.containsInAnyOrder(ContactConst.ALI_NAME))
                 .body("content.id", Matchers.notNullValue())
@@ -241,8 +238,6 @@ public class ContactIntegTest extends BaseIntegTest {
                 .statusCode(HttpStatus.SC_OK)
                 .body("content.github", Matchers.containsInAnyOrder(ContactConst.ALI_GITHUB))
                 .body("content.phoneNumber", Matchers.containsInAnyOrder(ContactConst.ALI_PHONE))
-//                .body("content.repositories", Matchers.containsInAnyOrder(
-//                        Constants.ROGAHYEH_REPOSITORY1,Constants.ROGAHYEH_REPOSITORY2,Constants.ROGAHYEH_REPOSITORY3))
                 .body("content.organization", Matchers.containsInAnyOrder(ContactConst.ALI_ORGANIZATION))
                 .body("content.name", Matchers.containsInAnyOrder(ContactConst.ALI_NAME))
                 .body("content.id", Matchers.notNullValue())
@@ -269,8 +264,6 @@ public class ContactIntegTest extends BaseIntegTest {
                 .statusCode(HttpStatus.SC_OK)
                 .body("content.github", Matchers.containsInAnyOrder(ContactConst.ROGAHYEH_GITHUB))
                 .body("content.phoneNumber", Matchers.containsInAnyOrder(ContactConst.ROGAHYEH_PHONE))
-//                .body("content.repositories", Matchers.containsInAnyOrder(
-//                        Constants.ROGAHYEH_REPOSITORY1,Constants.ROGAHYEH_REPOSITORY2,Constants.ROGAHYEH_REPOSITORY3))
                 .body("content.organization", Matchers.containsInAnyOrder(ContactConst.ROGAHYEH_ORGANIZATION))
                 .body("content.name", Matchers.containsInAnyOrder(ContactConst.ROGAHYEH_NAME))
                 .body("content.id", Matchers.notNullValue())
@@ -298,8 +291,7 @@ public class ContactIntegTest extends BaseIntegTest {
                 .statusCode(HttpStatus.SC_OK)
                 .body("content.github", Matchers.containsInAnyOrder(ContactConst.ALI_GITHUB))
                 .body("content.phoneNumber", Matchers.containsInAnyOrder(ContactConst.ALI_PHONE))
-//                .body("content.repositories", Matchers.containsInAnyOrder(
-//                        Constants.ROGAHYEH_REPOSITORY1,Constants.ROGAHYEH_REPOSITORY2,Constants.ROGAHYEH_REPOSITORY3))
+                .body("content.repositories", Matchers.containsInAnyOrder(Matchers.empty()))
                 .body("content.organization", Matchers.containsInAnyOrder(ContactConst.ALI_ORGANIZATION))
                 .body("content.name", Matchers.containsInAnyOrder(ContactConst.ALI_NAME))
                 .body("content.id", Matchers.notNullValue())
@@ -329,8 +321,7 @@ public class ContactIntegTest extends BaseIntegTest {
                 .statusCode(HttpStatus.SC_OK)
                 .body("content.github", Matchers.containsInAnyOrder(ContactConst.ALI_GITHUB, ContactConst.MINA_GITHUB))
                 .body("content.phoneNumber", Matchers.containsInAnyOrder(ContactConst.ALI_PHONE, ContactConst.MINA_PHONE))
-//                .body("content.repositories", Matchers.containsInAnyOrder(
-//                        Constants.ROGAHYEH_REPOSITORY1,Constants.ROGAHYEH_REPOSITORY2,Constants.ROGAHYEH_REPOSITORY3))
+                .body("content.repositories", Matchers.containsInAnyOrder(Matchers.empty(),Matchers.empty()))
                 .body("content.organization", Matchers.containsInAnyOrder(ContactConst.ALI_ORGANIZATION, ContactConst.MINA_ORGANIZATION))
                 .body("content.name", Matchers.containsInAnyOrder(ContactConst.ALI_NAME, ContactConst.MINA_NAME))
                 .body("content.id", Matchers.notNullValue())

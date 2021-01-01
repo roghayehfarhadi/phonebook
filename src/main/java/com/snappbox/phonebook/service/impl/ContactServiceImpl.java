@@ -8,21 +8,18 @@ import com.snappbox.phonebook.repository.ContactSpecification;
 import com.snappbox.phonebook.service.ContactService;
 import com.snappbox.phonebook.service.GithubService;
 import com.snappbox.phonebook.utility.ContactStatus;
-import com.snappbox.phonebook.utility.constant.ContactConst;
 import com.snappbox.phonebook.utility.mapper.BaseMapper;
-import com.snappbox.phonebook.utility.search.SearchCriteria;
+import com.snappbox.phonebook.utility.mapper.ContactMapper;
 import com.snappbox.phonebook.utility.search.SearchDto;
 import com.snappbox.phonebook.utility.search.SpecificationsBuilder;
-import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.retry.Retry;
+import io.vavr.CheckedFunction0;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.util.*;
 
-import static com.snappbox.phonebook.config.AsyncConfig.THREAD_POOL_GITHUB;
-import static com.snappbox.phonebook.utility.constant.ContactConst.GITHUB_KEY;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 
 @Service
@@ -31,64 +28,48 @@ public class ContactServiceImpl extends BaseServiceImpl<ContactEntity, ContactDt
     private final SpecificationsBuilder<ContactEntity, ContactSpecification> contactSpecBuilder;
     private final ContactRepository contactRepository;
     private final GithubService githubService;
+    private final ContactMapper contactMapper;
+    private final Retry retry;
 
     public ContactServiceImpl(BaseRepository<ContactEntity> baseRepository
             , BaseMapper<ContactEntity, ContactDto> baseMapper
             , SpecificationsBuilder<ContactEntity, ContactSpecification> contactSpecBuilder
-            , ContactRepository contactRepository, GithubService githubService) {
+            , ContactRepository contactRepository, GithubService githubService
+            , ContactMapper contactMapper, Retry retry) {
 
         super(baseRepository, baseMapper);
         this.contactSpecBuilder = contactSpecBuilder;
         this.contactRepository = contactRepository;
         this.githubService = githubService;
+        this.contactMapper = contactMapper;
+        this.retry = retry;
     }
 
     @Override
     public ContactEntity save(ContactDto dto) {
-        System.out.println("first thread:" +Thread.currentThread());
         ContactEntity contactEntity = super.save(dto);
-        updateContactRepositories(contactEntity);
+        CompletableFuture.runAsync(() -> updateContactRepositories(contactEntity));
         return contactEntity;
     }
 
     @Override
     public Page<ContactEntity> search(ContactDto contactDto) {
-        SearchDto searchDto = toSearchDto(contactDto);
+        SearchDto searchDto = contactMapper.toSearchDto(contactDto);
         Specification<ContactEntity> specification = contactSpecBuilder.build(searchDto, ContactSpecification.class);
         return contactRepository.findAll(specification, searchDto.getPageable());
     }
 
-    @Async(THREAD_POOL_GITHUB)
-    @Retry(name = GITHUB_KEY)
     @Override
     public void updateContactRepositories(ContactEntity contactEntity) {
-        System.out.println("second thread:" +Thread.currentThread());
-        Set<String> repoNames = githubService.getContactRepositoryNamesByGithub(contactEntity);
-        contactEntity.setRepositories(repoNames);
-        contactEntity.setStatus(ContactStatus.SUCCESS);
-        contactRepository.save(contactEntity);
-    }
-
-
-    private SearchDto toSearchDto(ContactDto contactDto) {
-        return Optional.ofNullable(contactDto)
-                .map(contDto -> {
-                    SearchDto searchDto = new SearchDto();
-                    List<SearchCriteria> criteria = new ArrayList<>();
-
-                    Optional.ofNullable(contactDto.getName())
-                            .ifPresent(name -> criteria.add(new SearchCriteria(ContactConst.NAME_KEY, name)));
-                    Optional.ofNullable(contactDto.getEmail())
-                            .ifPresent(email -> criteria.add(new SearchCriteria(ContactConst.EMAIL_KEY, email)));
-                    Optional.ofNullable(contactDto.getGithub())
-                            .ifPresent(github -> criteria.add(new SearchCriteria(GITHUB_KEY, github)));
-                    Optional.ofNullable(contactDto.getOrganization())
-                            .ifPresent(organization -> criteria.add(new SearchCriteria(ContactConst.ORGANIZATION_KEY, organization)));
-                    Optional.ofNullable(contactDto.getPhoneNumber())
-                            .ifPresent(phoneNumber -> criteria.add(new SearchCriteria(ContactConst.PHONE_NUMBER_KEY, phoneNumber)));
-
-                    searchDto.setCriteriaList(criteria);
-                    return searchDto;
-                }).orElseGet(SearchDto::new);
+        CheckedFunction0<Set<String>> retryingFlightSearch =
+                Retry.decorateCheckedSupplier(retry,
+                        () -> githubService.getContactRepositoryNamesByGithub(contactEntity));
+        try {
+            Set<String> repoNames = retryingFlightSearch.apply();
+            contactEntity.setRepositories(repoNames);
+            contactEntity.setStatus(ContactStatus.SUCCESS);
+            contactRepository.save(contactEntity);
+        } catch (Throwable ignore) {
+        }
     }
 }

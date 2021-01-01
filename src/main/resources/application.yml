@@ -7,15 +7,14 @@ spring:
     username: admin
     password: 18000000
 
-resilience4j.retry:
-  configs:
-    default:
-      maxRetryAttempts: 3
-      waitDuration: 100
-      retryExceptions:
-        - java.util.concurrent.TimeoutException
-#      ignoreExceptions:
-#        - com.walmart.cart.BusinessException
-  instances:
-    github:
-      baseConfig: default
+
+scheduled:
+     contactRepository: 600000
+
+github:
+  baseUrl:
+       "https://api.github.com/users/"
+  path: "/repos"
+  maxAttempts: 5
+  waitDuration: 5
+  retry: "github"
