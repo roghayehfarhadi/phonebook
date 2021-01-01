@@ -1,0 +1,14 @@
+com.snappbox.phonebook
+com.snappbox.phonebook.config
+com.snappbox.phonebook.controller
+com.snappbox.phonebook.domain
+com.snappbox.phonebook.dto
+com.snappbox.phonebook.dto.operationType
+com.snappbox.phonebook.repository
+com.snappbox.phonebook.service
+com.snappbox.phonebook.service.impl
+com.snappbox.phonebook.service.scheduled
+com.snappbox.phonebook.utility
+com.snappbox.phonebook.utility.constant
+com.snappbox.phonebook.utility.mapper
+com.snappbox.phonebook.utility.search
