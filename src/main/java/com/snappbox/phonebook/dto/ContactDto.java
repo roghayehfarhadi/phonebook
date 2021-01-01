@@ -6,11 +6,14 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
+/**
+ * this dto consist of all information of a {@link com.snappbox.phonebook.domain.ContactEntity}
+ *
+ * @author Roghayeh Farhadi
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//@Getter
-//@Setter
 public class ContactDto extends BaseDto {
     @NotBlank( groups = {PersistOperation.class})
     private String name;

@@ -21,7 +21,11 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-
+/**
+ * This class consists of all services of {@link ContactEntity}
+ *
+ * @author Roghayeh Farhadi
+ */
 @Service
 public class ContactServiceImpl extends BaseServiceImpl<ContactEntity, ContactDto> implements ContactService {
 
@@ -45,6 +49,15 @@ public class ContactServiceImpl extends BaseServiceImpl<ContactEntity, ContactDt
         this.retry = retry;
     }
 
+    /**
+     * A {@link ContactEntity} with PENDING {@link ContactStatus} persists in db
+     * and then it performs async call to @see "https://api.github.com/users/{username}/repos"
+     * and receive all repositories of contact and  changes  {@link ContactStatus} to SUCCESS
+     * when poor connection it performs the retry several times
+     *
+     * @param dto is contact information
+     * @return {@link ContactEntity} added in db
+     */
     @Override
     public ContactEntity save(ContactDto dto) {
         ContactEntity contactEntity = super.save(dto);
@@ -52,6 +65,12 @@ public class ContactServiceImpl extends BaseServiceImpl<ContactEntity, ContactDt
         return contactEntity;
     }
 
+    /**
+     * dynamic search across contacts
+     *
+     * @param contactDto consist of search key and values that it's optional
+     * @return {@link ContactEntity}
+     */
     @Override
     public Page<ContactEntity> search(ContactDto contactDto) {
         SearchDto searchDto = contactMapper.toSearchDto(contactDto);
@@ -59,6 +78,13 @@ public class ContactServiceImpl extends BaseServiceImpl<ContactEntity, ContactDt
         return contactRepository.findAll(specification, searchDto.getPageable());
     }
 
+    /**
+     * Call @see "https://api.github.com/users/{username}/repos"
+     * and receive all repositories of contact and  changes  {@link ContactStatus} to SUCCESS
+     * when poor connection it performs the retry several times
+     *
+     * @param contactEntity {@link ContactEntity}
+     */
     @Override
     public void updateContactRepositories(ContactEntity contactEntity) {
         CheckedFunction0<Set<String>> retryingFlightSearch =

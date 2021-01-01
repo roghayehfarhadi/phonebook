@@ -11,6 +11,11 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
+/**
+ * All definitions of general beans
+ *
+ * @author Roghayeh Farhadi
+ */
 
 @EnableScheduling
 @Configuration
@@ -33,9 +38,9 @@ public class GeneralConfig {
     @Bean
     public Retry retry() {
         RetryConfig config = RetryConfig.custom()
-                .maxAttempts(5)
-                .waitDuration(Duration.of(5, SECONDS))
+                .maxAttempts(maxAttempts)
+                .waitDuration(Duration.of(waitDuration, SECONDS))
                 .build();
-        return Retry.of("github", config);
+        return Retry.of(retry, config);
     }
 }

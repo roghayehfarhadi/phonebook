@@ -2,6 +2,11 @@ package com.snappbox.phonebook.utility.search;
 
 import lombok.*;
 
+/**
+ * This class specify key, value and operation for dynamic query
+ *
+ * @author Roghayeh Farhadi
+ */
 @Builder
 @Getter
 @Setter

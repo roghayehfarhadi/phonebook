@@ -12,6 +12,12 @@ import javax.persistence.criteria.Root;
 
 import static com.snappbox.phonebook.utility.constant.ContactConst.*;
 
+/**
+ * This class provides {@link Predicate} of {@link ContactEntity}
+ * for utilize in dynamic query
+ *
+ * @author Roghayeh Farhadi
+ */
 public class ContactSpecification extends SearchSpecification<ContactEntity> {
 
     private Predicate predicate = null;

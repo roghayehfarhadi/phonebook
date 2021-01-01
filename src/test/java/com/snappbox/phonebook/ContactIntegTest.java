@@ -20,6 +20,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author Roghayeh Farhadi
+ */
 public class ContactIntegTest extends BaseIntegTest {
 
     @Autowired

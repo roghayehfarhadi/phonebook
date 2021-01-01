@@ -1,5 +1,10 @@
 package com.snappbox.phonebook.utility.constant;
 
+/**
+ * This class consist of all {@link com.snappbox.phonebook.domain.ContactEntity} constants
+ *
+ * @author Roghayeh Farhadi
+ */
 public final class ContactConst {
 
     public static final String GITHUB_KEY = "github";

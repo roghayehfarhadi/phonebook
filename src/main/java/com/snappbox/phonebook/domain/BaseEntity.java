@@ -11,6 +11,11 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * This class is parent for all entity
+ *
+ * @author Roghayeh Farhadi
+ */
 @Setter
 @Getter
 @MappedSuperclass

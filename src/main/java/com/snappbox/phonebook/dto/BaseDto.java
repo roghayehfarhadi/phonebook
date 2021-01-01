@@ -1,7 +1,10 @@
 package com.snappbox.phonebook.dto;
 
-//@Getter
-//@Setter
+/**
+ * This class is parent for dto
+ *
+ * @author Roghayeh Farhadi
+ */
 public class BaseDto {
 
     private Long id;

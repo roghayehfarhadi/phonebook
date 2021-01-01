@@ -7,6 +7,11 @@ import com.snappbox.phonebook.service.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class provides utilities for persist entity in db
+ *
+ * @author Roghayeh Farhadi
+ */
 @RequiredArgsConstructor
 @Component
 public class TestDataUtil {

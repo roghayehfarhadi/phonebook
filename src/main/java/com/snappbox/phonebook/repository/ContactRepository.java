@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * This interface consist of all query methods of {@link ContactEntity}
+ *
+ * @author Roghayeh Farhadi
+ */
 @Repository
 public interface ContactRepository extends BaseRepository<ContactEntity> {
 

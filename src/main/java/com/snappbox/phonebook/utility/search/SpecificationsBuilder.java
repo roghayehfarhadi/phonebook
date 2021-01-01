@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class create {@link Specification} from user criteria
+ *
+ * @author Roghayeh Farhadi
+ */
 @Component
 public class SpecificationsBuilder<E extends BaseEntity, S extends Specification<E>> {
 

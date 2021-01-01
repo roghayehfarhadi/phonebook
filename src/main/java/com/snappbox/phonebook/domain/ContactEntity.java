@@ -8,11 +8,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+/**
+ * this class consist of all information of a contact
+ *
+ * @author Roghayeh Farhadi
+ */
 
 @AllArgsConstructor
 @NoArgsConstructor
-//@Getter
-//@Setter
 @Builder
 @Entity
 @Table(name = "contact")

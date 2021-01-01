@@ -10,9 +10,13 @@ import org.mapstruct.Mapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static com.snappbox.phonebook.utility.constant.ContactConst.GITHUB_KEY;
 
+/**
+ * This interface maps {@link ContactEntity } to {@link ContactDto} and vice versa
+ *
+ * @author Roghayeh Farhadi
+ */
 @Mapper(componentModel = "spring")
 public interface ContactMapper extends BaseMapper<ContactEntity, ContactDto> {
 

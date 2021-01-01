@@ -6,6 +6,11 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This dto class present criteria list defined by end user for dynamic query
+ *
+ * @author Roghayeh Farhadi
+ */
 @Getter
 @Setter
 @AllArgsConstructor
