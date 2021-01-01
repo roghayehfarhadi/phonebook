@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  snappbox-mysql:
+    container_name: snappbox-mysql
+    image: mysql:8.0.14
+    restart: always
+    networks:
+      - snappbox-bridge
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  snappbox-phonebook:
+    container_name: snappbox-phonebook
+    build: .
+    restart: always
+    depends_on:
+      - snappbox-mysql
+    ports:
+      - 8080:8080
+    networks:
+      - snappbox-bridge
+networks:
+  snappbox-bridge:
+    driver: bridge
